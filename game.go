@@ -181,7 +181,60 @@ func (g *Game) discardPhase() error {
 }
 
 func (g *Game) prophecy() {
-	// TODO
+	var i int
+
+	bound := 5
+	if len(g.deck) < bound {
+		bound = len(g.deck)
+	}
+
+	top := g.deck[0:bound]
+
+	fmt.Println("Top 5 Cards - Discard One")
+	for i, card := range top {
+		fmt.Printf("%d - %s", i, card)
+	}
+
+	for {
+		fmt.Scan(&i)
+		if i >= 0 && i < bound {
+			break
+		}
+	}
+
+	g.deck = append(g.deck[:i], g.deck[i+1:]...)
+
+	fmt.Println("Old order:")
+	for i, card := range top[:bound-1] {
+		fmt.Printf("%d - %s", i, card)
+	}
+
+	if bound == 5 {
+		var num, n1, n2, n3, n4 int
+		for {
+			fmt.Print("New order (space-separated): ")
+			if num, err := fmt.Scanf("%d %d %d %d", &n1, &n2, &n3, &n4); err != nil && num == 4 {
+				g.deck[0], g.deck[1], g.deck[2], g.deck[3] =
+					g.deck[n1], g.deck[n2], g.deck[n3], g.deck[n4]
+			}
+		}
+	} else if bound == 4 {
+		var num, n1, n2, n3 int
+		for {
+			fmt.Print("New order (space-separated): ")
+			if num, err := fmt.Scanf("%d %d %d", &n1, &n2, &n3); err != nil && num == 3 {
+				g.deck[0], g.deck[1], g.deck[2] = g.deck[n1], g.deck[n2], g.deck[n3]
+			}
+		}
+	} else if bound == 3 {
+		var num, n1, n2 int
+		for {
+			fmt.Print("New order (space-separated): ")
+			if num, err := fmt.Scanf("%d %d", &n1, &n2); err != nil && num == 2 {
+				g.deck[0], g.deck[1] = g.deck[n1], g.deck[n2]
+			}
+		}
+	}
 }
 
 // Attempts to play card at index |i|.
@@ -215,25 +268,4 @@ func (g Game) playPhase() error {
 	}
 
 	return nil
-}
-
-//func (g *Game) canDiscoverDoor(
-
-func (g Game) draw() {
-}
-
-func (g Game) shuffle() {
-}
-
-func (g Game) prophecy() {
-}
-
-func (g Game) checkWinConditions() {
-
-}
-
-//type twoPlayerGame struct{}
-
-func newTwoPlayerGame() Game {
-	panic("not implemented")
 }

@@ -101,6 +101,7 @@ func NewBasicDeck() Deck {
 		d = append(d, LabyrinthCard{GARDEN, SUN})
 		d = append(d, LabyrinthCard{LIBRARY, SUN})
 	}
+
 	d = append(d, LabyrinthCard{OBSERVATORY, SUN})
 	d = append(d, LabyrinthCard{OBSERVATORY, SUN})
 	d = append(d, LabyrinthCard{OBSERVATORY, SUN})
