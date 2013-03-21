@@ -40,7 +40,7 @@ func (p Player) removeCard(i int) LabyrinthCard {
 	return card
 }
 
-// Gets this player's card at index |i|. Also returns the pile from which this 
+// Gets this player's card at index |i|. Also returns the pile from which this
 // card came from, to make removal easier.
 //
 // requires			0 <= i < 5
@@ -48,7 +48,7 @@ func (p Player) removeCard(i int) LabyrinthCard {
 // param	i		The index of the card.
 //
 // returns	card	The card.
-//			pile	The address of the pile the card came from (either player's 
+//			pile	The address of the pile the card came from (either player's
 //						hand or shared)
 func (p Player) cardAt(i int) (card LabyrinthCard, pile *[]LabyrinthCard) {
 	if i < len(*p.hand) {
@@ -78,6 +78,8 @@ func (p Player) playCardAt(i int) error {
 
 	p.removeCard(i)
 	*p.labyrinth = append(*p.labyrinth, card)
+
+	return nil
 }
 
 // Gets the end of this Player's Labyrinth.
@@ -117,39 +119,24 @@ func (p *Player) addDoor(door DoorCard) {
 	*p.doors = append(*p.doors, door)
 }
 
-////////////////////////////////////////////////////////////////////////////////
-// Old code below
-////////////////////////////////////////////////////////////////////////////////
-
 // Determines if the player has a Key of class |class|.
+//
 // param	class	The class of Key to look for.
+//
 // returns	The index of the Key, if found, and a bool representing whether or
 //			not the key was found.
 func (p *Player) hasKey(class int) (int, bool) {
-	for i, card := range p.hand {
+	for i, card := range *p.hand {
 		if card.symbol == KEY && card.class == class {
 			return i, true
 		}
 	}
 
+	for i, card := range *p.sharedResources {
+		if card.symbol == KEY && card.class == class {
+			return i + 3, true
+		}
+	}
+
 	return -1, false
-}
-
-// Moves card at index |i| from the Player's hand to his Labyrinth.
-// param	i	The index of the card in the Player's hand
-func (p *Player) moveToLabyrinth(i int) {
-	card := p.removeCard(i)
-	p.labyrinth = append(p.labyrinth, card)
-}
-
-func (p *Player) printHand() {
-	for _, card := range p.hand {
-		fmt.Println(card)
-	}
-}
-
-func (p *Player) printLabyrinth() {
-	for _, card := range p.labyrinth {
-		fmt.Println(card)
-	}
 }

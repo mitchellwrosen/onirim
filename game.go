@@ -210,7 +210,7 @@ func (g *Game) prophecy() {
 	}
 
 	if bound == 5 {
-		var num, n1, n2, n3, n4 int
+		var n1, n2, n3, n4 int
 		for {
 			fmt.Print("New order (space-separated): ")
 			if num, err := fmt.Scanf("%d %d %d %d", &n1, &n2, &n3, &n4); err != nil && num == 4 {
@@ -219,7 +219,7 @@ func (g *Game) prophecy() {
 			}
 		}
 	} else if bound == 4 {
-		var num, n1, n2, n3 int
+		var n1, n2, n3 int
 		for {
 			fmt.Print("New order (space-separated): ")
 			if num, err := fmt.Scanf("%d %d %d", &n1, &n2, &n3); err != nil && num == 3 {
@@ -227,7 +227,7 @@ func (g *Game) prophecy() {
 			}
 		}
 	} else if bound == 3 {
-		var num, n1, n2 int
+		var n1, n2 int
 		for {
 			fmt.Print("New order (space-separated): ")
 			if num, err := fmt.Scanf("%d %d", &n1, &n2); err != nil && num == 2 {

@@ -37,13 +37,12 @@ func (d *Deck) draw() (Card, error) {
 }
 
 func (d *Deck) drawHand() []LabyrinthCard {
-	var card Card
-
 	hand := make([]LabyrinthCard, 0, 5)
 	putBack := make(Deck, 0, 5)
 
 	for len(hand) < 5 {
-		if card, err := d.draw(); err != nil {
+		card, err := d.draw()
+		if err != nil {
 			panic("Tried to draw a hand from an empty deck")
 		}
 
